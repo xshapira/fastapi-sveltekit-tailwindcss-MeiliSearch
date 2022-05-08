@@ -108,7 +108,6 @@ type Provider struct {
 			Name            string `json:"provider_name"`
 		} `json:"free,omitempty"`
 	} `json:"results" gorm:"column:providers;type:json"`
-}
 
 type MediaIds struct {
 	Ids []string `json:"ids"`
