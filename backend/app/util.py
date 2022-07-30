@@ -6,10 +6,7 @@ from typing import Tuple
 
 def chunkify(lst: list, size: int) -> Tuple[Generator[list, None, None], int]:
     """Chunks lst into unique subsets of length chunk_size"""
-    chunks = 0
-    for i in range(len(lst)):
-        if not (i % size):
-            chunks += 1
+    chunks = sum(not i % size for i in range(len(lst)))
     return (lst[i::chunks] for i in range(chunks)), chunks
 
 

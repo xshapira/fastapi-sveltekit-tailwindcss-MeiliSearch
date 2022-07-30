@@ -20,8 +20,7 @@ router = APIRouter(
 @router.get("/{media_id}", response_model=Media)
 async def read_specific_media(media_id: str, db: Session = Depends(get_db)):
     """Reads all database media"""
-    db_media = get_media_by_id(db=db, media_id=media_id)
-    if db_media:
+    if db_media := get_media_by_id(db=db, media_id=media_id):
         return db_media
     raise HTTPException(status_code=404, detail="Media doesn't exist")
 

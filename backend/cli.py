@@ -62,12 +62,10 @@ def fetch_media(popularity: float = 0):
                     if "movie" in file:
                         item = json.loads(line)
                         item["id"] = "m" + str(item["id"])
-                        data.append(item)
                     else:
                         item = json.loads(line)
                         item["id"] = "t" + str(item["id"])
-                        data.append(item)
-
+                    data.append(item)
     data_length = len(data)
 
     typer.echo(f"media elements: {data_length} with popularity >= {popularity}")
@@ -201,7 +199,7 @@ async def genres_to_cache():
 @coroutine
 async def full_setup(popularity: Optional[float], remove_non_ascii: bool = False):
     await insert_genres_to_cache(get_genres())
-    fetch_media(popularity if popularity else 0)
+    fetch_media(popularity or 0)
     if remove_non_ascii:
         remove_non_ascii_media()
     add_data()

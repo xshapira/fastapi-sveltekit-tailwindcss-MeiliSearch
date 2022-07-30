@@ -111,8 +111,8 @@ def fetch_media_ids(popularity: float = 0) -> Tuple[list[str], list[str]]:
 def fetch_changed_media_ids() -> Tuple[list[str], list[str]]:
     tmdb_url = get_settings().tmdb_url
     tmdb_key = get_settings().tmdb_key
-    today = datetime.today().strftime("%Y-%m-%d")
-    yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+    today = datetime.now().strftime("%Y-%m-%d")
+    yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
     with httpx.Client() as client:
         movie_res = client.get(
@@ -274,7 +274,7 @@ def get_genres() -> dict:
     tv_genre_dict = {genre["id"]: genre["name"] for genre in tv_genres["genres"]}
 
     # Only keeps the unique keys
-    return {**movie_genre_dict, **tv_genre_dict}
+    return movie_genre_dict | tv_genre_dict
 
 
 def request_data(media: models.Media):
@@ -318,4 +318,4 @@ def request_data(media: models.Media):
 def get_recommendations(recommendations: dict) -> list[dict]:
     """Gets list of recommended movies for a movie"""
 
-    return [result for result in recommendations["results"]]
+    return list(recommendations["results"])

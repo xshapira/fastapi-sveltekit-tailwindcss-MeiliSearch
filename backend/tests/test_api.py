@@ -5,7 +5,7 @@ client = TestClient(main.app)
 
 
 def test_sry_nullxdeadbeef():
-    assert True is True
+    pass
 
 
 # def test_get_correct_movie_from_id():

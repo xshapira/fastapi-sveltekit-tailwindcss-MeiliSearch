@@ -10,10 +10,11 @@ def get_media_by_id(db: Session, media_id: str):
 
 def get_all_media(db: Session, skip: int = 0, limit: int = 0) -> list[models.Media]:
     """Gets all Media-types limited by 'limit'"""
-    if not limit:
-        return db.query(models.Media).all()
-
-    return db.query(models.Media).offset(skip).limit(limit).all()
+    return (
+        db.query(models.Media).offset(skip).limit(limit).all()
+        if limit
+        else db.query(models.Media).all()
+    )
 
 
 def get_all_media_iter(db: Session):
